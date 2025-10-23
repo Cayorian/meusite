@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Cayo & Julia — 10 Anos de Amor</title>
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#fff5f8; --rose:#ff9dbb; --purple:#824fa3; --accent:#d16ba5; --gold:#c69b49; --muted:#6b5a6b; --card:#fff;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:"Poppins",sans-serif;background:linear-gradient(180deg,var(--bg),#fff);color:#222;-webkit-font-smoothing:antialiased;}
+/* login */
+.screen{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg, rgba(130,79,163,0.12), rgba(255,157,187,0.08));z-index:1000;padding:20px;}
+.card{width:100%;max-width:420px;background:rgba(255,255,255,0.96);border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,0.12);padding:22px;text-align:center;}
+.brand{font-family:"Great Vibes",cursive;color:var(--purple);font-size:36px;letter-spacing:1px;}
+.sub{color:var(--muted);margin-bottom:18px;}
+.input{width:100%;padding:12px 14px;margin:8px 0;border-radius:10px;border:1px solid #eee;font-size:16px;}
+.btn{display:inline-block;background:linear-gradient(90deg,var(--purple),var(--accent));color:white;border:none;padding:12px 18px;border-radius:10px;margin-top:8px;cursor:pointer;font-weight:600;box-shadow:0 6px 18px rgba(209,107,165,0.18);}
+.ghost{background:transparent;border:1px solid rgba(130,79,163,0.18);color:var(--purple);}
+
+/* loading */
+.loading{display:none;position:fixed;inset:0;align-items:center;justify-content:center;z-index:999;background:linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,255,255,0.6));flex-direction:column;padding:30px;}
+.loader-box{max-width:760px;width:100%;text-align:center;}
+.loader-photo{width:180px;height:180px;border-radius:12px;object-fit: cover;box-shadow:0 6px 20px rgba(0,0,0,0.12);transition:opacity .6s ease;}
+.loader-phrase{margin-top:18px;font-size:18px;color:var(--muted);transition:opacity .6s ease;}
+
+/* main */
+main{display:none;padding-bottom:80px;}
+header.main-header{padding:32px 18px;text-align:center;background:linear-gradient(90deg,var(--purple),var(--accent));color:white;}
+header.main-header h1{margin:0;font-family:"Great Vibes",cursive;font-size:34px;}
+header.main-header p{margin:8px 0 0;opacity:0.95;font-weight:300;}
+.container{max-width:980px;margin:30px auto;padding:0 18px;}
+
+/* carousel */
+.carousel{position:relative;max-width:900px;margin:0 auto 18px;border-radius:16px;overflow:hidden;background:#fff;padding:6px;}
+.slides{display:flex;transition:transform .6s cubic-bezier(.2,.9,.2,1);touch-action:pan-y;}
+.slide{min-width:100%;user-select:none;}
+.slide img{width:100%;height:430px;object-fit: contain;display:block;border-radius:12px;}
+.controls{position:absolute;inset:0;pointer-events:none;}
+.btnctrl{pointer-events:auto;position:absolute;top:50%;transform:translateY(-50%);background:rgba(0,0,0,0.32);color:white;border:none;width:46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;}
+.btnctrl.left{left:14px;}
+.btnctrl.right{right:14px;}
+
+/* highlights */
+.highlights{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-top:22px;}
+.card-photo{background:var(--card);border-radius:12px;padding:12px;box-shadow:0 8px 20px rgba(0,0,0,0.06);text-align:left;}
+.card-photo img{width:100%;height:160px;object-fit:cover;border-radius:10px;}
+.card-photo h3{margin:10px 0 6px;color:var(--purple);font-size:16px;}
+.card-photo p{margin:0;color:#5b495b;font-size:14px;}
+
+/* video */
+.video-wrap{ text-align:center;margin:28px 0;}
+.video-wrap video{width:100%;max-width:880px;border-radius:12px;box-shadow:0 8px 30px rgba(0,0,0,0.12);}
+
+/* continue button */
+.continue-wrap{display:flex;justify-content:center;margin:24px 0;}
+.cont-btn{background:linear-gradient(90deg,var(--purple),var(--accent));color:white;padding:14px 22px;border-radius:12px;border:none;font-weight:600;cursor:pointer;box-shadow:0 10px 30px rgba(130,79,163,0.14);transition:all .28s ease;}
+.cont-btn:hover{transform:translateY(-4px);box-shadow:0 18px 40px rgba(130,79,163,0.18);filter:brightness(1.03);}
+
+/* footer */
+footer{text-align:center;padding:18px;margin-top:30px;color:#4a394a;font-size:14px;}
+
+/* responsive */
+@media (max-width:720px){.slide img{height:320px}.loader-photo{width:140px;height:140px}header.main-header h1{font-size:28px}}
+</style>
+</head>
+<body>
+
+<div class="screen" id="loginScreen">
+  <div class="card">
+    <div class="brand">Cayo & Julia</div>
+    <div class="sub">Bem-vinda, meu amor. Entre com o usuário para ver nossa história.</div>
+    <input id="username" class="input" type="text" placeholder="Usuário (ex: Julia)" value="Julia" />
+    <input id="password" class="input" type="password" placeholder="Senha" />
+    <div style="display:flex;gap:10px;justify-content:center;margin-top:10px;">
+      <button class="btn" id="enterBtn">Entrar</button>
+      <button class="btn ghost" id="demoBtn">Entrar como demo</button>
+    </div>
+    <p style="margin-top:12px;color:var(--muted);font-size:13px;">Dica: senha padrão — <strong>2015</strong></p>
+  </div>
+</div>
+
+<div class="loading" id="loadingScreen">
+  <div class="loader-box">
+    <img id="loaderPhoto" class="loader-photo" src="imagens/foto9.jpg.jpeg" alt="memória">
+    <div class="loader-phrase" id="loaderText">Carregando memórias...</div>
+  </div>
+</div>
+
+<main id="mainApp">
+  <header class="main-header">
+    <h1>Cayo & Julia — 10 Anos de Amor</h1>
+    <p>27 de outubro de 2025 • Dez anos de histórias, risadas e promessas</p>
+  </header>
+
+  <div class="container">
+    <section class="intro" style="text-align:center;margin-top:18px;">
+      <img src="imagens/foto1.jpg.jpeg" alt="Capa" style="width:220px;border-radius:14px;box-shadow:0 10px 30px rgba(130,79,163,0.08)" />
+      <p style="margin-top:12px;color:#4a394a;max-width:700px;margin-left:auto;margin-right:auto;">
+        Cada sorriso, cada abraço, cada plano — tudo nos trouxe até aqui. Este cantinho é pra relembrar e renovar o nosso "sim".
+      </p>
+    </section>
+
+    <section class="historia">
+      <h2>Momentos Especiais</h2>
+      <div class="carousel" id="carousel">
+        <div class="slides" id="slides">
+          <div class="slide"><img src="imagens/foto11.jpg.jpeg" alt="f1"></div>
+          <div class="slide"><img src="imagens/foto5.jpg.jpeg" alt="f2"></div>
+          <div class="slide"><img src="imagens/foto6.jpg.jpeg" alt="f3"></div>
+          <div class="slide"><img src="imagens/foto7.jpg.jpeg" alt="f4"></div>
+        </div>
+        <div class="controls">
+          <button class="btnctrl left" id="prevBtn" aria-label="Anterior">&lt;</button>
+          <button class="btnctrl right" id="nextBtn" aria-label="Próximo">&gt;</button>
+        </div>
+      </div>
+
+      <div class="highlights">
+        <div class="card-photo"><img src="imagens/foto2.jpg.jpeg" alt=""><h3>Nosso primeiro passeio</h3><p>Aquele dia que descobrimos que ríamos das mesmas besteiras.</p></div>
+        <div class="card-photo"><img src="imagens/foto3.jpg.jpeg" alt=""><h3>Viagem inesquecível</h3><p>Ruas novas, comidas novas e a sensação de estar no lugar certo: ao seu lado.</p></div>
+        <div class="card-photo"><img src="imagens/foto8.jpg.jpg" alt=""><h3>Pequenos grandes momentos</h3><p>Jantares improvisados, filmes até tarde e o abraço que resolve o dia.</p></div>
+      </div>
+    </section>
+
+    <section class="videos">
+      <h2>O Pedido de Noivado</h2>
+      <p style="max-width:800px;margin:6px auto 14px;">Um dos nossos maiores momentos — você disse sim, e minha vida ganhou outro sentido.</p>
+      <div class="video-wrap"><video id="noivadoVideo" controls preload="metadata" poster="imagens/noivado-poster.jpg"><source src="imagens/noivado.mp4.mp4" type="video/mp4">Seu navegador não suporta vídeo.</video></div>
+    </section>
+
+    <div class="continue-wrap">
+      <button class="cont-btn" id="continueBtn">Continuar nossa história ➜</button>
+    </div>
+
+    <footer>
+      <p>🎵 Trilha: <a href="https://open.spotify.com/track/..." target="_blank" style="color:inherit;font-weight:600;text-decoration:underline;">Duas Metades — Jorge & Mateus</a></p>
+      <p style="font-size:13px;color:#6b5a6b;">Feito com amor por Cayo — 27/10/2025</p>
+    </footer>
+  </div>
+</main>
+
+<script>
+const DEFAULT_PASS = "2015";
+const loginScreen = document.getElementById('loginScreen');
+const loadingScreen = document.getElementById('loadingScreen');
+const mainApp = document.getElementById('mainApp');
+const loaderText = document.getElementById('loaderText');
+const loaderPhoto = document.getElementById('loaderPhoto');
+
+const phrases = [
+  "10 anos de risadas, abraços e promessas...",
+  "Carregando as memórias mais lindas do mundo ❤️",
+  "Segura minha mão — estamos quase lá."
+];
+
+const loaderImages = [
+  "imagens/foto4.jpg.jpeg",
+  "imagens/foto10.jpg.jpeg",
+  "imagens/foto11.jpg.jpeg",
+  
+];
+
+document.getElementById('enterBtn').addEventListener('click', () => {
+  const p = document.getElementById('password').value;
+  if(!p){ alert("Preencha a senha."); return; }
+  if(p === DEFAULT_PASS){ startLoadingThenShowMain(); } else { alert("Senha incorreta."); }
+});
+document.getElementById('demoBtn').addEventListener('click', startLoadingThenShowMain);
+
+function startLoadingThenShowMain() {
+  loginScreen.style.display = 'none';
+  loadingScreen.style.display = 'flex';
+
+  let i = 0;
+  loaderPhoto.style.opacity = 0;
+  loaderPhoto.src = loaderImages[0];
+  loaderText.textContent = phrases[0];
+
+  setTimeout(() => { loaderPhoto.style.opacity = 1; }, 100);
+
+  const interval = setInterval(() => {
+    i++;
+    if (i < loaderImages.length) {
+      loaderPhoto.style.opacity = 0;
+      setTimeout(() => {
+        loaderPhoto.src = loaderImages[i];
+        loaderText.textContent = phrases[i % phrases.length];
+        loaderPhoto.style.opacity = 1;
+      }, 800);
+    } else {
+      clearInterval(interval);
+      setTimeout(() => {
+        loadingScreen.style.display = 'none';
+        showMain();
+      }, 1200);
+    }
+  }, 3000);
+}
+
+function showMain(){ mainApp.style.display='block'; window.scrollTo({top:0,behavior:'smooth'}); }
+
+/* carousel */
+const slidesEl = document.getElementById('slides');
+const slideEls = document.querySelectorAll('.slide');
+let current = 0;
+const total = slideEls.length;
+function update(){ slidesEl.style.transform = `translateX(-${current*100}%)`; }
+document.getElementById('nextBtn').addEventListener('click', ()=>{ current=(current+1)%total; update(); });
+document.getElementById('prevBtn').addEventListener('click', ()=>{ current=(current-1+total)%total; update(); });
+let autoTimer = setInterval(()=>{ current=(current+1)%total; update(); }, 5000);
+let startX=0;
+slidesEl.addEventListener('touchstart', e=>{ startX = e.touches[0].clientX; clearInterval(autoTimer); });
+slidesEl.addEventListener('touchend', e=>{ const endX = e.changedTouches[0].clientX; if(endX-startX>40) current=(current-1+total)%total; else if(startX-endX>40) current=(current+1)%total; update(); autoTimer=setInterval(()=>{ current=(current+1)%total; update(); },5000); });
+
+document.getElementById('continueBtn').addEventListener('click', ()=> {
+  loaderPhoto.src = "imagens/foto11.jpg.jpeg";
+  loaderText.textContent = "Indo para o próximo capítulo...";
+  loadingScreen.style.display = 'flex';
+  setTimeout(()=>{ window.location.href = "contrato.html"; }, 1100);
+});
+</script>
+</body>
+</html>
